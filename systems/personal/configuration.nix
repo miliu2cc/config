@@ -47,10 +47,10 @@
       #fcitx5-pinyin-zhwiki
     ];
   };
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  services = {
-      displayManager.gdm.enable = true;
-      displayManager.gdm.wayland = true;
+  # Define a user account. Don't forget to set a password with 'passwd'.
+  services.xserver.displayManager.gdm = {
+    enable = true;
+    wayland = true;
   };
 
 
