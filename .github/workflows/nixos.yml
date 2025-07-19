@@ -38,12 +38,12 @@ jobs:
 
       - run: cd $GITHUB_WORKSPACE
 
-      - name: Set up a cachix cache
-        uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad
-        with:
-          # Name of a cachix cache to push and pull/substitute
-          name: "freshlybakedcake"
-          authToken: "${{ secrets.CACHIX_TOKEN }}"
+      #- name: Set up a cachix cache
+      #  uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad
+      #  with:
+      #    # Name of a cachix cache to push and pull/substitute
+      #    name: "freshlybakedcake"
+      #    authToken: "${{ secrets.CACHIX_TOKEN }}"
 
       # see https://git.lix.systems/lix-project/lix/issues/545
       - name: Fix apparmor configuration for building Lix

@@ -7,13 +7,13 @@
     ./boot.nix
     ./fonts.nix
     ./images.nix
-    ./impermanence.nix
+    #./impermanence.nix
     ./inputs.nix
     ./lix.nix
     ./nilla-nix.nix
     ./packetmix.nix
-    ./smartcard.nix
+    #./smartcard.nix
     ./sudo.nix
-    ./sysctl.nix
+    #./sysctl.nix
   ];
 }

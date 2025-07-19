@@ -17,38 +17,56 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  time.timeZone = "Asia/Shanghai";
+  # Enable touchpad support (enabled default in most desktopManager).
+  services.xserver.libinput.enable = true;
+  #
+  i18n.defaultLocale = "en_US.UTF-8";
+
+      i18n.extraLocaleSettings = {
+        LC_ADDRESS = "zh_CN.UTF-8";
+        LC_IDENTIFICATION = "zh_CN.UTF-8";
+        LC_MEASUREMENT = "zh_CN.UTF-8";
+        LC_MONETARY = "zh_CN.UTF-8";
+        LC_NAME = "zh_CN.UTF-8";
+        LC_NUMERIC = "zh_CN.UTF-8";
+        LC_PAPER = "zh_CN.UTF-8";
+        LC_TELEPHONE = "zh_CN.UTF-8";
+        LC_TIME = "zh_CN.UTF-8";
+  };
+
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-rime
+      fcitx5-gtk
+      fcitx5-chinese-addons
+      fcitx5-table-extra
+      #fcitx5-pinyin-moegirl
+      #fcitx5-pinyin-zhwiki
+    ];
+  };
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  services = {
+      displayManager.gdm.enable = true;
+      displayManager.gdm.wayland = true;
+  };
+
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.minion = {
+  users.users.n3xt2f = {
     isNormalUser = true;
-    description = "Skyler Grey";
+    description = "N3xt2f";
     extraGroups = [
       "networkmanager"
       "wheel"
     ];
     packages = with pkgs; [
       #  thunderbird
-    ];
-  };
-  users.users.coded = {
-    isNormalUser = true;
-    description = "Samuel Shuert";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-  };
-  users.users.pinea = {
-    isNormalUser = true;
-    description = "Pinea";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
     ];
   };
 
@@ -68,7 +86,26 @@
     (project.inputs.npins.result { inherit pkgs system; })
     thunderbird
     wl-clipboard
+
+    networkmanager_dmenu
+    clash-verge-rev
   ];
+
+  #GPU
+  services.xserver.videoDrivers = ["nvidia" "modesetting"];
+  hardware.nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      prime = {
+          offload.enable = true;
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+      };
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      open = true;
+      nvidiaSettings = false;
+  };=
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
