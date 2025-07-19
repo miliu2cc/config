@@ -105,7 +105,7 @@
       powerManagement.finegrained = false;
       open = true;
       nvidiaSettings = false;
-  };=
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
