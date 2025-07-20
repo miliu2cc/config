@@ -13,7 +13,7 @@
   networking.networkmanager.enable = true;
 
   # Enable sound with pipewire
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -22,8 +22,6 @@
     pulse.enable = true;
   };
 
-  # Enable touchpad support
-  services.xserver.libinput.enable = true;
 
   # Define a user account
   users.users.n3xt2f = {

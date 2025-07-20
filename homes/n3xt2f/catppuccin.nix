@@ -14,7 +14,10 @@
   # GTK theme
   gtk = {
     enable = true;
-    catppuccin = {
+  };
+
+  catppuccin = {
+    gtk = {
       enable = true;
       flavor = "mocha";
       accent = "blue";

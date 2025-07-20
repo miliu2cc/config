@@ -17,7 +17,7 @@
     operation = "boot"; # The default is "switch", but that can lead to some nasty inconsistencies - boot is cleaner
     flags = [
       "-f"
-      "/home/n3xt2f/packetmix/nilla.nix"
+      "/home/n3xt2f/config/nilla.nix"
       "-A"
       "systems.nixos.${config.networking.hostName}.result"
     ];
@@ -25,7 +25,7 @@
 
   systemd.services.nixos-upgrade.preStart = ''
     ${pkgs.networkmanager}/bin/nm-online -s -q # wait until the internet is online, as esp. if we go offline we need to wait to retry...
-    cd /home/n3xt2f/packetmix
+    cd /home/n3xt2f/config
     ${pkgs.git}/bin/git fetch
     ${pkgs.git}/bin/git checkout config/release
   '';
