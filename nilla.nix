@@ -11,6 +11,7 @@ let
     nixpkgs.configuration.allowUnfreePredicate = (
       x: (x ? meta.license) && (x.meta.license.shortName == "unfreeRedistributable")
     ); # As we push to a public cachix, we can't use non-redistributable unfree software
+    nixpkgs.config.allowUnfree = true;  # 允许所有非自由软件
     "nixos-24.11" = settings.nixpkgs;
     nixos-unstable = settings.nixpkgs;
   };
