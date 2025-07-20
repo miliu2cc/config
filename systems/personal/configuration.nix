@@ -58,17 +58,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.n3xt2f = {
-    isNormalUser = true;
-    description = "N3xt2f";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [
-      #  thunderbird
-    ];
-  };
+
 
   # Install firefox.
   programs.firefox.enable = true;
