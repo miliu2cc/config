@@ -3,5 +3,5 @@
 # SPDX-License-Identifier: MIT
 
 {
-  home-manager.backupFileExtension = "bcup";
+  home-manager.backupFileExtension = "bcup1";
 }

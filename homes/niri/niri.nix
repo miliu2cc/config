@@ -92,134 +92,160 @@
           input.power-key-handling.enable = false;
 
           binds =
-            let
-              inherit (config.lib.niri) actions;
+                      let
+                        inherit (config.lib.niri) actions;
 
-              mod = "Super";
+                        mod = "Super";
 
-              generateWorkspaceBindings = workspaceNumber: {
-                "${mod}+${builtins.toString (lib.mod workspaceNumber 10)}".action.focus-workspace = [
-                  workspaceNumber
-                ];
-                "${mod}+Shift+${builtins.toString (lib.mod workspaceNumber 10)}".action.move-column-to-workspace = [
-                  workspaceNumber
-                ];
-              };
-              joinAttrsetList = listOfAttrsets: lib.fold (a: b: a // b) { } listOfAttrsets;
-            in
-            {
-              "Mod+Q".action = close-window;
-              "Mod+Shift+Q".action = quit;
+                        generateWorkspaceBindings = workspaceNumber: {
+                          "${mod}+${builtins.toString (lib.mod workspaceNumber 10)}".action.focus-workspace = [
+                            workspaceNumber
+                          ];
+                          "${mod}+Shift+${builtins.toString (lib.mod workspaceNumber 10)}".action.move-column-to-workspace = [
+                            workspaceNumber
+                          ];
+                        };
+                        joinAttrsetList = listOfAttrsets: lib.fold (a: b: a // b) { } listOfAttrsets;
+                      in
+                      {
+                        # General Keybinds
+                        "${mod}+Q".action.close-window = [ ];
+                        "${mod}+Shift+Q".action.quit = [ ];
+                        "${mod}+Return".action.spawn = "${pkgs.ghostty}/bin/ghostty";
+                        "${mod}+P".action.spawn = [
+                          "sh"
+                          "-c"
+                          lock
+                        ];
 
-              "Mod+Return".action.spawn = "ghostty";#换成ghosty
-              "Mod+G".action.spawn = [
-                "ghostty"
-                "-e"
-                "hx"
-              ];
-              "Mod+E".action.spawn = [
-                "ghostty"
-                "-e"
-                "yazi"
-              ];
-              "Mod+W".action.spawn = "firefox";
-              "Mod+A".action.spawn = "onagre";
+                        "${mod}+R".action.screenshot = [ ];
+                        "${mod}+Ctrl+R".action.screenshot-screen = [ ];
+                        "${mod}+Shift+R".action.screenshot-window = [ ];
 
+                        "${mod}+Space".action.switch-layout = [ "next" ];
+                        "${mod}+Shift+Space".action.switch-layout = [ "prev" ];
 
-              "Mod+F".action = toggle-window-floating;
-              "Mod+B".action = fullscreen-window;
-              "Mod+Tab".action = toggle-overview;#概览
+                        "${mod}+D".action.spawn = "onagre";
 
-              "Mod+H".action = focus-column-left;
-              "Mod+L".action = focus-column-right;
-
-              "Mod+Ctrl+H".action = move-column-left;
-              "Mod+Ctrl+L".action = move-column-right;
-
-              "Mod+J".action = focus-window-or-workspace-down;
-              "Mod+K".action = focus-window-or-workspace-up;
-              "Mod+Shift+J".action = consume-or-expel-window-left;
-              "Mod+Shift+K".action = consume-or-expel-window-right;
-              "Mod+Ctrl+J".action = move-window-down-or-to-workspace-down;
-              "Mod+Ctrl+K".action = move-window-up-or-to-workspace-up;
-
-              "Mod+U".action = focus-column-first;
-              "Mod+I".action = focus-column-last;
-              "Mod+Ctrl+U".action = move-column-to-first;
-              "Mod+Ctrl+I".action = move-column-to-last;
+                        "${mod}+Shift+Slash".action.show-hotkey-overlay = [ ];
 
 
+                        "${mod}+N".action.spawn = [
+                          "sh"
+                          "-c"
+                          "${pkgs.systemd}/bin/systemctl --user start swaync && ${pkgs.swaynotificationcenter}/bin/swaync-client -t"
+                        ];
+                        # We need to ensure swaync is started, since as it isn't usually until we get a notification
+                      }
+                      //
+                        # Workspace Keybinds
+                        (lib.pipe (lib.range 1 10) [
+                          (map generateWorkspaceBindings)
+                          joinAttrsetList
+                        ])
+                      //
+                        # Window Manipulation Bindings
+                        ({
+                          "${mod}+BracketLeft".action.consume-or-expel-window-left = [ ]; #方括号
+                          "${mod}+BracketRight".action.consume-or-expel-window-right = [ ];
+                          "${mod}+Shift+BracketLeft".action.consume-window-into-column = [ ];
+                          "${mod}+Shift+BracketRight".action.expel-window-from-column = [ ];
+                          "${mod}+Slash".action.switch-preset-column-width = [ ];
+                          "${mod}+F".action.fullscreen-window = [ ];
+                          "${mod}+Shift+F".action.toggle-windowed-fullscreen = [ ];
 
-              "Mod+C".action = center-column;
-              "Mod+V".action = switch-focus-between-floating-and-tiling;
-              #"Mod+Shift+v".action = focus-tiling;
+                          # Focus
+                          "${mod}+K".action.focus-window-or-workspace-up = [ ];
+                          "${mod}+J".action.focus-window-or-workspace-down = [ ];
 
-              "Mod+Shift+1".action.move-window-to-workspace = 1;
-              "Mod+Shift+2".action.move-window-to-workspace = 2;
-              "Mod+Shift+3".action.move-window-to-workspace = 3;
-              "Mod+Shift+4".action.move-window-to-workspace = 4;
-              "Mod+Shift+5".action.move-window-to-workspace = 5;
-              "Mod+Shift+6".action.move-window-to-workspace = 6;
-              "Mod+Shift+7".action.move-window-to-workspace = 7;
-              "Mod+Shift+8".action.move-window-to-workspace = 8;
-              "Mod+Shift+9".action.move-window-to-workspace = 9;
-              "Mod+Shift+0".action.move-window-to-workspace = 10;
+                          # Non Jump Movement
+                          "${mod}+Shift+K".action.move-window-up-or-to-workspace-up = [ ];
+                          "${mod}+Shift+J".action.move-window-down-or-to-workspace-down = [ ];
+                          "${mod}+Shift+H".action.consume-or-expel-window-left = [ ];
+                          "${mod}+Shift+L".action.consume-or-expel-window-right = [ ];
 
-              "Mod+1".action.focus-workspace = 1;
-              "Mod+2".action.focus-workspace = 2;
-              "Mod+3".action.focus-workspace = 3;
-              "Mod+4".action.focus-workspace = 4;
-              "Mod+5".action.focus-workspace = 5;
-              "Mod+6".action.focus-workspace = 6;
-              "Mod+7".action.focus-workspace = 7;
-              "Mod+8".action.focus-workspace = 8;
-              "Mod+9".action.focus-workspace = 9;
-              "Mod+0".action.focus-workspace = 10;
 
-              "Mod+Shift+H".action.set-column-width = "-5%";
-              "Mod+Shift+L".action.set-column-width = "+5%";
 
-              "Mod+S".action = screenshot;
-            }
-            // {
-              # Audio
-              "XF86AudioRaiseVolume" = {
-                allow-when-locked = true;
-                action.spawn = [
-                  "${pkgs.wireplumber}/bin/wpctl"
-                  "set-volume"
-                  "@DEFAULT_AUDIO_SINK@"
-                  "0.05+"
-                ];
-              };
-              "XF86AudioLowerVolume" = {
-                allow-when-locked = true;
-                action.spawn = [
-                  "${pkgs.wireplumber}/bin/wpctl"
-                  "set-volume"
-                  "@DEFAULT_AUDIO_SINK@"
-                  "0.05-"
-                ];
-              };
-              "XF86AudioMute" = {
-                allow-when-locked = true;
-                action.spawn = [
-                  "${pkgs.wireplumber}/bin/wpctl"
-                  "set-mute"
-                  "@DEFAULT_AUDIO_SINK@"
-                  "toggle"
-                ];
-              };
-              "XF86AudioMicMute" = {
-                allow-when-locked = true;
-                action.spawn = [
-                  "${pkgs.wireplumber}/bin/wpctl"
-                  "set-mute"
-                  "@DEFAULT_AUDIO_SOURCE@"
-                  "toggle"
-                ];
-              };
-            };
+                          # To Workspace
+                          "${mod}+Ctrl+K".action.move-window-to-workspace-up = [ ];
+                          "${mod}+Ctrl+J".action.move-window-to-workspace-down = [ ];
+
+                          # Sizing
+                          "${mod}+Equal".action.set-window-height = [ "+5%" ];
+                          "${mod}+Minus".action.set-window-height = [ "-5%" ];
+                        })
+                      //
+                        # Column Manipulation Bindings
+                        ({
+                          # Focus
+                          "${mod}+H".action.focus-column-left = [ ];
+                          "${mod}+L".action.focus-column-right = [ ];
+                          "${mod}+C".action.center-column = [ ];
+                          "${mod}+B".action.maximize-column = [ ];
+
+
+                        })
+                      //
+                        # Workspace Manipulation Bindings
+                        ({
+                          # Focus
+                          "${mod}+Page_Up".action.focus-workspace-up = [ ];
+                          "${mod}+Page_Down".action.focus-workspace-down = [ ];
+
+                          # Within Itself
+                          "${mod}+Shift+Page_Up".action.move-workspace-up = [ ];
+                          "${mod}+Shift+Page_Down".action.move-workspace-down = [ ];
+
+                          # To Monitor
+                          "${mod}+Shift+Ctrl+Page_Up".action.move-workspace-to-monitor-up = [ ];
+                          "${mod}+Shift+Ctrl+Page_Down".action.move-workspace-to-monitor-down = [ ];
+                          "${mod}+Shift+Ctrl+Home".action.move-workspace-to-monitor-left = [ ];
+                          "${mod}+Shift+Ctrl+End".action.move-workspace-to-monitor-right = [ ];
+
+                          "${mod}+Space" = {
+                            action.toggle-overview = [ ];
+                            repeat = false;
+                          };
+                        })
+                      // {
+                        # Audio
+                        "XF86AudioRaiseVolume" = {
+                          allow-when-locked = true;
+                          action.spawn = [
+                            "${pkgs.wireplumber}/bin/wpctl"
+                            "set-volume"
+                            "@DEFAULT_AUDIO_SINK@"
+                            "0.05+"
+                          ];
+                        };
+                        "XF86AudioLowerVolume" = {
+                          allow-when-locked = true;
+                          action.spawn = [
+                            "${pkgs.wireplumber}/bin/wpctl"
+                            "set-volume"
+                            "@DEFAULT_AUDIO_SINK@"
+                            "0.05-"
+                          ];
+                        };
+                        "XF86AudioMute" = {
+                          allow-when-locked = true;
+                          action.spawn = [
+                            "${pkgs.wireplumber}/bin/wpctl"
+                            "set-mute"
+                            "@DEFAULT_AUDIO_SINK@"
+                            "toggle"
+                          ];
+                        };
+                        "XF86AudioMicMute" = {
+                          allow-when-locked = true;
+                          action.spawn = [
+                            "${pkgs.wireplumber}/bin/wpctl"
+                            "set-mute"
+                            "@DEFAULT_AUDIO_SOURCE@"
+                            "toggle"
+                          ];
+                        };
+                      };
 
           layout = {
             gaps = 16;
