@@ -11,6 +11,7 @@
 
   # Enable NetworkManager
   networking.networkmanager.enable = true;
+  nixpkgs.config.allowUnfree = true;
 
   # Enable sound with pipewire
   hardware.pulseaudio.enable = false;
