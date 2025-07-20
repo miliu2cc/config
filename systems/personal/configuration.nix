@@ -78,6 +78,7 @@
     wl-clipboard
 
     networkmanager_dmenu
+    onagre
     clash-verge-rev
   ];
 
@@ -96,6 +97,8 @@
       open = true;
       nvidiaSettings = false;
   };
+
+  environment.shells = with pkgs; [nushell];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

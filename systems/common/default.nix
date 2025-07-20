@@ -11,7 +11,7 @@
     ./inputs.nix
     ./lix.nix
     ./nilla-nix.nix
-    ./packetmix.nix
+    #./packetmix.nix
     #./smartcard.nix
     ./sudo.nix
     #./sysctl.nix
