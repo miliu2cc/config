@@ -8,7 +8,7 @@
     (import "${project.inputs.lix-module.result}/module.nix" { lix = project.inputs.lix.src; })
   ];
 
-  nix.settings.experimental-features = [ "nix-command" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes"];
 
   nix.gc = {
     automatic = true;

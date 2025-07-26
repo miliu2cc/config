@@ -18,6 +18,7 @@ in
       ./development
       #./gaming
       ./n3xt2f
+      ./waybar
       (import ./niri { inherit (config.inputs) niri walker home-manager-unstable; })
       (import ./nix-index { inherit (config.inputs) nix-index-database; })
       #./remote

@@ -11,6 +11,7 @@
     ./hoppscotch.nix
     ./jujutsu.nix
     ./simplified-utilities.nix
+    ./starship.nix
     ./tmux.nix
   ];
 }

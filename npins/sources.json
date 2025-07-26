@@ -52,6 +52,19 @@
       "url": "https://github.com/nix-community/home-manager/archive/d0300c8808e41da81d6edfc202f3d3833c157daf.tar.gz",
       "hash": "sha256-irfg7lnfEpJY+3Cffkluzp2MTVw1Uq9QGxFp6qadcXI="
     },
+    "ignis": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ignis-sh",
+        "repo": "ignis"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "28715e0e465f573196f9b3da881f6e42ed53b56e",
+      "url": "https://github.com/ignis-sh/ignis/archive/28715e0e465f573196f9b3da881f6e42ed53b56e.tar.gz",
+      "hash": "sha256-FG4cBKHgx4F5TyA9toQfDcexp+iOpNtSwpNXfrraim0="
+    },
     "impermanence": {
       "type": "Git",
       "repository": {

@@ -118,6 +118,12 @@
                           lock
                         ];
 
+                        "${mod}+W".action.spawn = "firefox";
+                        "${mod}+E".action.spawn = [
+                          "ghostty"
+                          "-e"
+                          "yazi"
+                        ];
                         "${mod}+R".action.screenshot = [ ];
                         "${mod}+Ctrl+R".action.screenshot-screen = [ ];
                         "${mod}+Shift+R".action.screenshot-window = [ ];
@@ -298,6 +304,12 @@
               command = [
                 "fcitx5"
                 "-dr"
+              ];
+            }
+            {
+              command = [
+              "ignis"
+              "init"
               ];
             }
           ];

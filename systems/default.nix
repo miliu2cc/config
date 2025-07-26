@@ -11,10 +11,11 @@ in
     pkgs = nixpkgs.x86_64-linux;
     modules = [
       ./common
+      ./gnome
       ./niri
       ./nixos
       ./personal
-      ./portable
+      ./river
     ];
     args = {
       system = "x86_64-linux";

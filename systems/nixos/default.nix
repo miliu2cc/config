@@ -12,22 +12,13 @@
   # Enable NetworkManager
   networking.networkmanager.enable = true;
 
-  # Enable sound with pipewire
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
 
   # Define a user account
   users.users.n3xt2f = {
     isNormalUser = true;
     description = "n3xt2f";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.nushell;
   };
 
   # This value determines the NixOS release from which the default

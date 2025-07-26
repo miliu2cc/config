@@ -33,7 +33,7 @@ in
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    extraPortals = [ pkgs.xdg-desktop-portal ];
     configPackages = [ package ];
   };
 
@@ -55,7 +55,7 @@ in
 
   security.pam.services.swaylock = { };
   programs.dconf.enable = lib.mkDefault true;
-  fonts.enableDefaultPackages = lib.mkDefault true;
+  #fonts.enableDefaultPackages = lib.mkDefault true;
 
   home-manager.sharedModules = [
     {

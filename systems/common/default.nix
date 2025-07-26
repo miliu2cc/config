@@ -8,12 +8,12 @@
     ./fonts.nix
     ./images.nix
     #./impermanence.nix
-    ./inputs.nix
+    #./inputs.nix
     ./lix.nix
     ./nilla-nix.nix
     #./packetmix.nix
     #./smartcard.nix
     ./sudo.nix
-    #./sysctl.nix
+    ./sysctl.nix
   ];
 }

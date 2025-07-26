@@ -16,6 +16,7 @@
 {
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall.enable = false;
 
   time.timeZone = "Asia/Shanghai";
   # Enable touchpad support (enabled default in most desktopManager).
@@ -71,15 +72,15 @@
     git
     helix
     chromium
-    dogdns
     ghostty
     (project.inputs.npins.result { inherit pkgs system; })
-    thunderbird
     wl-clipboard
 
-    networkmanager_dmenu
     onagre
-    clash-verge-rev
+    #clash-verge-rev
+    flclash
+    pixi
+    iwd
   ];
 
   #GPU
@@ -118,5 +119,4 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  services.tailscale.enable = true;
 }

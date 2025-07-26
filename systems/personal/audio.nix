@@ -4,13 +4,7 @@
 
 { pkgs, ... }:
 {
-  environment.systemPackages = [
-    pkgs.pwvucontrol
-    pkgs.qpwgraph
-  ];
 
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;

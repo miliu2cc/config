@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2025 FreshlyBakedCake
 #
 # SPDX-License-Identifier: MIT
-
+{pkgs, ...}:
 {
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -9,4 +9,5 @@
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 }
